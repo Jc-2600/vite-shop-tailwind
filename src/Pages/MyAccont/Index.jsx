@@ -1,12 +1,10 @@
+import { Layout } from "../../Components/Layout";
+
 export function MyAccount() {
 
     return (
-      <>
-        <div>
-          <h1 className='bg-gray-200 text-center text-4xl text-white'>
-            My Account
-          </h1>
-        </div>
-      </>
+      <Layout>
+        <h1>My Account Page</h1>
+      </Layout>
     )
 }

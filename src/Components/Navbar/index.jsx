@@ -5,7 +5,7 @@ export const Navbar = () => {
     const activeStyle = 'underline underline-offset-4'
 
     return(
-        <nav className='flex item-center justify-between fixed to-zinc-100 w-full py-5 px-8 text-sm font-light'>
+        <nav className='flex item-center justify-between fixed top-0 to-zinc-100 w-full py-5 px-8 text-sm font-light'>
             <ul className='flex flex-row gap-3'>
                 <li className='font-semibold text-lg'>
                     <NavLink

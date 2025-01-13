@@ -1,12 +1,11 @@
+import { Layout } from "../../Components/Layout";
+
 export function SignIn() {
 
     return (
-      <>
-        <div>
-          <h1 className='bg-gray-200 text-center text-4xl text-white'>
-            SignIn
-          </h1>
-        </div>
-      </>
+      <Layout>
+        <h1>Sign In Page</h1>
+        <p>Please sign in to access your account.</p>
+      </Layout>
     )
 }
