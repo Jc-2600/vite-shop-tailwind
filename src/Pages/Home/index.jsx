@@ -13,7 +13,6 @@ export function Home() {
           const response = await fetch(`${apiUrl}`)
           const data = await response.json()
           setItems(data)
-          console.log(data)
         } catch (error) {
           console.error(`Oh no, ocurrió un error: ${error}`);
         }
