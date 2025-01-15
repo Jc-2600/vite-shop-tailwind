@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Card } from "../../Components/Card"
+import { ProductDetail } from "../../Components/ProductDetail"
 import { Layout } from "../../Components/Layout"
 import { apiUrl } from "../../api"
 
@@ -30,6 +31,7 @@ export function Home() {
             ))
           }
         </section>
+        <ProductDetail />
       </Layout>
     )
 }
