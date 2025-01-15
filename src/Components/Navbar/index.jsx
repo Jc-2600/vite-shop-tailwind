@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import  {NavLink} from 'react-router-dom'
 import { ShoppingCartContext } from '../../Context'
 import { useContext } from 'react'
@@ -9,7 +10,7 @@ export const Navbar = () => {
     const {count} = useContext(ShoppingCartContext)
 
     return(
-        <nav className='flex item-center justify-between fixed top-0 to-zinc-100 w-full py-5 px-8 text-sm font-light'>
+        <nav className='flex item-center justify-between fixed top-0 to-zinc-100 w-full py-5 px-8 text-sm font-light bg-white'>
             <ul className='flex flex-row gap-3 items-center'>
                 <li className='font-semibold text-lg'>
                     <NavLink

@@ -11,13 +11,17 @@ export const Card = ({data}) => {
         setImageError(true)
     }
 
-    const {count, setCount, toggleProductDetail} = useContext(ShoppingCartContext)
+    const {count, setCount, toggleProductDetail, setProductToShow} = useContext(ShoppingCartContext)
     
+    const showProduct = (productDetail) => {
+        toggleProductDetail()
+        setProductToShow(productDetail)
+    }
   
     return(
         <article 
             className = 'bg-gray-300/30 cursor-pointer w-56 h-max rounded-lg shadow-md'
-            onClick={() => toggleProductDetail()}    
+            onClick={() => showProduct(data)}    
         >
             <figure className='relative mb-2 w-full h-4/5'>
                 <span className='absolute bottom-0 left-0 bg-white/60 rounded-full text-black text-xs m-2 p-1'>{data.category.name}</span>

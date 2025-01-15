@@ -10,10 +10,12 @@ export const ShoppingCartContext = createContext()
 export const ShoppingCartProvider = ({children}) => {
     // Implement your context logic here.
     const [count, setCount] = useState(0)
-
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
-
+    //Close and open the shopping cart
     const toggleProductDetail = () =>  setIsProductDetailOpen(!isProductDetailOpen)
+    //product detail - show product detail
+    const [productToShow, setProductToShow] = useState({})
+
 
 
     return (
@@ -22,6 +24,8 @@ export const ShoppingCartProvider = ({children}) => {
             setCount,
             toggleProductDetail,
             isProductDetailOpen,
+            productToShow,
+            setProductToShow,
         }}>
             {children}
         </ShoppingCartContext.Provider>
@@ -29,7 +33,6 @@ export const ShoppingCartProvider = ({children}) => {
 }
 
 ShoppingCartProvider.propTypes = {
-    name: PropTypes.string.isRequired,
     children: PropTypes.node
 };
 
