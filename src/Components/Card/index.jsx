@@ -11,11 +11,44 @@ export const Card = ({data}) => {
         setImageError(true)
     }
 
-    const {count, setCount, toggleProductDetail, setProductToShow} = useContext(ShoppingCartContext)
+    const {count, setCount, openProductDetail, setProductToShow, setCartProducts, cartProducts, openCheckoutSideMenu, closeCheckoutSideMenu} = useContext(ShoppingCartContext)
     
     const showProduct = (productDetail) => {
-        toggleProductDetail()
+        openProductDetail()
+        closeCheckoutSideMenu()
         setProductToShow(productDetail)
+    }
+
+    const addProductsToCart = (e,productData) => {
+        e.stopPropagation()
+        setCartProducts([...cartProducts, productData])
+        openCheckoutSideMenu()
+        setCount(count + 1)
+
+    }
+
+    const renderIcon = (id) => {
+        const isInCart = cartProducts.filter(product => product.id === id ).length > 0
+
+        if(isInCart) {
+            return (
+                <button className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 " >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path   stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </button>
+            )
+        }
+        else {
+            return(
+                <button className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 " 
+                    onClick={(e) => addProductsToCart(e,data)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </button>
+            )
+        }
     }
   
     return(
@@ -34,19 +67,11 @@ export const Card = ({data}) => {
                     alt={data.title} 
                     onError={handleImageError}
                 />
-                <button className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 " 
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setCount(count + 1)
-                        }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </button>
+                {renderIcon(data.id)}
             </figure>
             <div className='flex justify-between px-2 flex-row space-x-2'>
                 <span className='text-sm font-light  w-3/4'>{data.title}</span>
-                <span className='text-lg font-medium w-1/4'>$ {data.price}</span>
+                <span className='text-base font-medium w-1/4'>$ {data.price}</span>
             </div>
         </article>
     )
