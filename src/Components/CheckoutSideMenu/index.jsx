@@ -3,6 +3,7 @@ import { ShoppingCartContext } from '../../Context';
 import { useContext } from 'react';
 import { OrderCard } from '../OrderCard';
 import './styles.css';
+import { totalPrice } from '../../utils';
 
 export const CheckoutSideMenu = () => {
         
@@ -13,10 +14,11 @@ export const CheckoutSideMenu = () => {
         setCartProducts(filteredProducts)
     }
 
+
     
     return (
         <aside 
-            className ={`${isCheckoutSideMenuOpen ? 'flex' : 'hidden'} chekout-side-menu  flex-col fixed bg-white right-0 border border-black rounded-l`}>
+            className ={`${isCheckoutSideMenuOpen ? 'flex' : 'hidden'} chekout-side-menu  flex-col fixed bg-white right-0 border border-black rounded-l `}>
             <div className='flex justify-between items-center p-6'>
                 <h2 className='font-medium text-xl'>My Order</h2>
                 <button onClick={() => closeCheckoutSideMenu()}>
@@ -38,6 +40,12 @@ export const CheckoutSideMenu = () => {
                         />
                     ))
                 }
+            </div>
+            <div className='px-6 border-t-2 border-gray-100'>
+                <p className='flex justify-between items-center'>
+                    <span className='font-light'>Total:</span>
+                    <span className='font-medium text-xl'>${totalPrice(cartProducts)}</span>
+                </p>
             </div>
         </aside>
     )
