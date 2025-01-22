@@ -1,17 +1,30 @@
 /* eslint-disable react/no-unknown-property */
 import { ShoppingCartContext } from '../../Context';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { OrderCard } from '../OrderCard';
 import './styles.css';
-import { totalPrice } from '../../utils';
+import { totalPrice, dateTime } from '../../utils';
 
 export const CheckoutSideMenu = () => {
         
-    const {isCheckoutSideMenuOpen, closeCheckoutSideMenu,cartProducts, setCartProducts} = useContext(ShoppingCartContext)
+    const {isCheckoutSideMenuOpen, closeCheckoutSideMenu,cartProducts, setCartProducts, setOrder, order} = useContext(ShoppingCartContext)
 
     const handleDelete = (id) =>{
         const filteredProducts = cartProducts.filter(product => product.id != id)
         setCartProducts(filteredProducts)
+    }
+
+    const handleCheckout = () =>{
+        const orderToCart = {
+            date: dateTime(),
+            products: cartProducts,
+            totalProducts: cartProducts.length,
+            totalPrice: totalPrice(cartProducts)
+        }
+        setOrder([...order, orderToCart])
+        closeCheckoutSideMenu()
+        setCartProducts([])
     }
 
 
@@ -27,7 +40,7 @@ export const CheckoutSideMenu = () => {
                     </svg>
                 </button>
             </div>
-            <div className='px-6 overflow-y-scroll'>
+            <div className='px-6 overflow-y-scroll flex-1'>
                 {
                     cartProducts.map( product => (
                         <OrderCard 
@@ -41,11 +54,18 @@ export const CheckoutSideMenu = () => {
                     ))
                 }
             </div>
-            <div className='px-6 border-t-2 border-gray-100'>
+            <div className='px-6 border-t-2 border-gray-100 mb-6'>
                 <p className='flex justify-between items-center'>
                     <span className='font-light'>Total:</span>
                     <span className='font-medium text-xl'>${totalPrice(cartProducts)}</span>
                 </p>
+                <Link to='/my-orders/last'>
+                    <button 
+                        className='w-full mt-4 text-sm font-medium text-white bg-black hover:bg-gray-700 px-2 py-2 rounded-sm' 
+                        onClick={()=> handleCheckout()}>
+                        Checkout
+                    </button>
+                </Link>
             </div>
         </aside>
     )

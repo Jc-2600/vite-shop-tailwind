@@ -11,7 +11,7 @@ export const Card = ({data}) => {
         setImageError(true)
     }
 
-    const {count, setCount, openProductDetail, setProductToShow, setCartProducts, cartProducts, openCheckoutSideMenu, closeCheckoutSideMenu} = useContext(ShoppingCartContext)
+    const { openProductDetail, setProductToShow, setCartProducts, cartProducts, openCheckoutSideMenu, closeCheckoutSideMenu} = useContext(ShoppingCartContext)
     
     const showProduct = (productDetail) => {
         openProductDetail()
@@ -23,8 +23,6 @@ export const Card = ({data}) => {
         e.stopPropagation()
         setCartProducts([...cartProducts, productData])
         openCheckoutSideMenu()
-        setCount(count + 1)
-
     }
 
     const renderIcon = (id) => {

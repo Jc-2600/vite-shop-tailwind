@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 export const ShoppingCartContext = createContext()
 
 export const ShoppingCartProvider = ({children}) => {
-    // Implement your context logic here.
-    const [count, setCount] = useState(0)
     //Close and open the shopping details
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
     const openProductDetail = () =>  setIsProductDetailOpen(true)
@@ -25,12 +23,11 @@ export const ShoppingCartProvider = ({children}) => {
     const [cartProducts, setCartProducts] = useState([])
     
 
-
+    // Shopping cart - order
+    const [order, setOrder] = useState([])
 
     return (
         <ShoppingCartContext.Provider value={{
-            count,
-            setCount,
             openProductDetail,
             closeProductDetail,
             isProductDetailOpen,
@@ -42,6 +39,8 @@ export const ShoppingCartProvider = ({children}) => {
             isCheckoutSideMenuOpen,
             closeCheckoutSideMenu,
             setIsCheckoutSideMenuOpen,
+            order,
+            setOrder,
         }}>
             {children}
         </ShoppingCartContext.Provider>
