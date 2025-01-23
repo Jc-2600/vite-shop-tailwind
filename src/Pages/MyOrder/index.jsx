@@ -5,12 +5,15 @@ import { OrderCard } from "../../Components/OrderCard";
 
 export function MyOrder() {
   const { order } = useContext(ShoppingCartContext);
+  const currentPath = window.location.pathname;
+  let orderId = currentPath.split("/").slice(-1)[0];
+  if(orderId === 'last') orderId = order?.length - 1
 
   return (
     <Layout>
       <h1>My Order Page</h1>
       <div className='flex flex-col w-2/4'>
-        {order?.slice(-1)[0].products.map((product) => (
+        {order?.[orderId]?.products.map((product) => (
           <OrderCard
             key={product.id}
             id={product.id}
