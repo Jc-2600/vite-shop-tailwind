@@ -7,7 +7,18 @@ import { ShoppingCartContext } from "../../Context"
 export function Home() {
 
     
-    const {items, setSearchByTitle} = useContext(ShoppingCartContext)
+    const {items, setSearchByTitle, filteredItems, searchByTitle} = useContext(ShoppingCartContext)
+    
+    const renderView = () => {
+      const itemsToRender = searchByTitle?.length > 0 ? filteredItems : items 
+      if(itemsToRender?.length > 0) {
+        return itemsToRender?.map(item => (
+          <Card key ={item.id} data = {item}/>
+         ))
+      }else{
+        return <h1 className="text-2xl font-medium">No products found</h1>
+      }
+    }
     
 
     return (
@@ -21,11 +32,7 @@ export function Home() {
           className="rounded-lg border border-black w-96 p-4 mb-4 focus:outline-none"
           onChange={(event) => setSearchByTitle(event.target.value)}/>
         <section className='grid gap-4 grid-cols-4 w-full max-w-screen-lg'>
-          {
-            items?.map(item => (
-             <Card key ={item.id} data = {item}/>
-            ))
-          }
+          {renderView()}
         </section>
         <ProductDetail />
       </Layout>
