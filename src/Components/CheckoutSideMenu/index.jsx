@@ -8,7 +8,7 @@ import { totalPrice, dateTime } from '../../utils';
 
 export const CheckoutSideMenu = () => {
         
-    const {isCheckoutSideMenuOpen, closeCheckoutSideMenu,cartProducts, setCartProducts, setOrder, order} = useContext(ShoppingCartContext)
+    const {isCheckoutSideMenuOpen, closeCheckoutSideMenu,cartProducts, setCartProducts, setOrder, order,setSearchByTitle} = useContext(ShoppingCartContext)
 
     const handleDelete = (id) =>{
         const filteredProducts = cartProducts.filter(product => product.id != id)
@@ -25,6 +25,7 @@ export const CheckoutSideMenu = () => {
         setOrder([...order, orderToCart])
         closeCheckoutSideMenu()
         setCartProducts([])
+        setSearchByTitle(null)
     }
 
 

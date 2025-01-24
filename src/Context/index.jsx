@@ -34,6 +34,8 @@ export const ShoppingCartProvider = ({children}) => {
 
     //Search by title
     const [searchByTitle, setSearchByTitle] = useState(null)
+    //Search by category
+    const [searchByCategory, setSearchByCategory] = useState(null)
 
     useEffect(() =>{
           const fetchData = async () => {
@@ -52,10 +54,25 @@ export const ShoppingCartProvider = ({children}) => {
       return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
     }
 
-    useEffect(() => {
-      if(searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
-    },[items, searchByTitle])
+    const filteredItemsByCategory = (items, searchByCategory) => {
+      return items?.filter(item => item.category.name.toLowerCase().includes(searchByCategory))
+    }
 
+    const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+      if(searchType === 'BY_TITLE') return filteredItemsByTitle(items, searchByTitle)
+      if(searchType === 'BY_CATEGORY') return filteredItemsByCategory(items, searchByCategory)
+      if(searchType === 'BY_TITLE_AND_CATEGORY') return filteredItemsByCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+      if(!searchType) return items
+    }
+
+
+    useEffect(() => {
+      if(searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_TITLE_AND_CATEGORY',items, searchByTitle, searchByCategory))
+      if(searchByTitle && !searchByCategory) setFilteredItems(filterBy('BY_TITLE',items, searchByTitle, searchByCategory))
+      if(!searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY',items, searchByTitle, searchByCategory))
+      if(!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null,items, searchByTitle, searchByCategory))
+    },[items, searchByTitle, searchByCategory])
+    
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -77,6 +94,8 @@ export const ShoppingCartProvider = ({children}) => {
             searchByTitle,
             setSearchByTitle, 
             filteredItems,
+            searchByCategory,
+            setSearchByCategory,
         }}>
             {children}
         </ShoppingCartContext.Provider>

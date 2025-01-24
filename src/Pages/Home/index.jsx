@@ -7,12 +7,11 @@ import { ShoppingCartContext } from "../../Context"
 export function Home() {
 
     
-    const {items, setSearchByTitle, filteredItems, searchByTitle} = useContext(ShoppingCartContext)
+    const {setSearchByTitle, filteredItems} = useContext(ShoppingCartContext)
     
     const renderView = () => {
-      const itemsToRender = searchByTitle?.length > 0 ? filteredItems : items 
-      if(itemsToRender?.length > 0) {
-        return itemsToRender?.map(item => (
+      if(filteredItems?.length > 0) {
+        return filteredItems?.map(item => (
           <Card key ={item.id} data = {item}/>
          ))
       }else{
