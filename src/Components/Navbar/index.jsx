@@ -8,7 +8,7 @@ export const Navbar = () => {
 
     const activeStyle = 'underline underline-offset-4'
 
-    const { setSearchByCategory, setSignOut, signOut, account} = useContext(ShoppingCartContext)
+    const { setSearchByCategory, setSignOut, signOut, account, categories} = useContext(ShoppingCartContext)
 
       //Account 
     const accountl = JSON.parse(localStorage.getItem('account'))
@@ -107,56 +107,18 @@ export const Navbar = () => {
                             All
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to = "/tools"
-                        onClick={() => setSearchByCategory('tools')}
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                            Tools
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to = "/electronics"
-                        onClick={() => setSearchByCategory('electronics')}
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                            Electronics
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to = "/furniture"
-                        onClick={() => setSearchByCategory('furniture')}
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                            Furnitures
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to = "/shoes"
-                        onClick={() => setSearchByCategory('shoes')}
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                            Shoes
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to = "/miscellaneous"
-                        onClick={() => setSearchByCategory('miscellaneous')}
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined
-                        }>
-                            Miscellaneous
-                    </NavLink>
-                </li>
+                {categories?.map(category => (
+                    <li key={category.id}>
+                        <NavLink
+                            to = {`/${category.name.toLowerCase()}`}
+                            onClick={() => setSearchByCategory(category.name.toLowerCase())}
+                            className={({isActive}) =>
+                                isActive ? activeStyle : undefined
+                            }>
+                                {category.name}
+                        </NavLink>
+                    </li>
+                ) )}
             </ul>
             <ul className='flex flex-row gap-3 items-center'>
                  {renderView()}   

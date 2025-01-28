@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext } from 'react'
 import { useState } from 'react'
 import PropTypes from 'prop-types';
 import { useEffect } from 'react'
-import { apiUrl } from '../api'
+import { apiUrl, apiUrlCat } from '../api'
 
 
 
@@ -56,6 +57,8 @@ export const ShoppingCartProvider = ({children}) => {
     const [order, setOrder] = useState([])
     // Get products
     const [items, setItems] = useState(null)
+    // Get Categories
+    const [categories, setCategories] = useState(null)
     
     const [filteredItems, setFilteredItems] = useState(null)
 
@@ -77,6 +80,19 @@ export const ShoppingCartProvider = ({children}) => {
           fetchData()
         },[])
 
+    useEffect(() =>{
+          const fetchData = async () => {
+            try {
+              const response = await fetch(`${apiUrlCat}`)
+              const data = await response.json()
+              setCategories(data)
+            } catch (error) {
+              console.error(`Oh no, ocurrió un error: ${error}`);
+            }
+          }
+          fetchData()
+          console.log('Categories', categories)
+    },[])
     const filteredItemsByTitle = (items, searchByTitle) => {
       return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
     }
@@ -127,6 +143,8 @@ export const ShoppingCartProvider = ({children}) => {
             setAccount, 
             signOut,
             setSignOut,
+            categories,
+            setCategories
           }}>
             {children}
         </ShoppingCartContext.Provider>

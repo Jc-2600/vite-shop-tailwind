@@ -46,12 +46,12 @@ export function SignIn() {
     return(
       <div className="flex flex-col w-80 justify-center"> 
           <p>
-            <span className="font-light text-sm">Email: </span>
-            <span>{accountl?.email}</span>
+            <span className="font-light text-sm">name: </span>
+            <span>{accountl?.name}</span>
           </p>
           <p>
-            <span className="font-light text-sm">Password: </span>
-            <span>{accountl?.password}</span>
+            <span className="font-light text-sm">Email: </span>
+            <span>{accountl?.email}</span>
           </p>
           <Link 
             to='/'>

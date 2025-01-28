@@ -9,6 +9,7 @@ import { useContext } from 'react'
 import {ShoppingCartContext} from '../Context'
 
 
+
 export const AppRoutes = () => {
 
   const {signOut, account} = useContext(ShoppingCartContext)
@@ -26,10 +27,14 @@ export const AppRoutes = () => {
       const parsedSignOut = JSON.parse(signOutL)
       const isUserSignOut = signOut || parsedSignOut
   
-  
+
+    
 
     let routes = useRoutes([
       { path: '/', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
+      { path: '/clothes', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
+      { path: '/grosery', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
+      { path: '/computer-category', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
       { path: '/tools', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
       { path: '/electronics', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
       { path: '/furniture', element: hasUserAccount && !isUserSignOut ? <Home /> : <Navigate to={'/sign-in'}/>},
