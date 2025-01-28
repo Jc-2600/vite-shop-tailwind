@@ -7,7 +7,17 @@ export const Navbar = () => {
 
     const activeStyle = 'underline underline-offset-4'
 
-    const {cartProducts, setSearchByCategory, setSignOut, signOut} = useContext(ShoppingCartContext)
+    const {cartProducts, setSearchByCategory, setSignOut, signOut, account} = useContext(ShoppingCartContext)
+
+      //Account 
+    const accountl = JSON.parse(localStorage.getItem('account'))
+
+    //Has an account 
+    const noAccountInLocalStorage = accountl ? Object.keys(accountl).length === 0 : true
+    const noAccountInLocalState = account ? Object.keys(account).length === 0 : true
+    const hasUserAccount = !noAccountInLocalStorage || !noAccountInLocalState
+
+
 
     //Sign out
     const signOutL = localStorage.getItem('sign-out')
@@ -21,24 +31,11 @@ export const Navbar = () => {
     }
 
     const renderView = () =>{
-        if(isUserSignOut){
-            return(
-                <li>
-                    <NavLink
-                        to = "/sign-in"
-                        className={({isActive}) =>
-                            isActive ? activeStyle : undefined}
-                        onClick = {() => handleSignOut()}
-                    >
-                            Sing out
-                    </NavLink>
-                </li>
-            )
-        }else{
+        if(hasUserAccount  && !isUserSignOut){
             return(
                 <>
-                    <li className='text-black/60'>
-                    juan@correo.com
+                <li className='text-black/60'>
+                        {accountl?.name}
                 </li>
                 <li>
                     <NavLink
@@ -71,6 +68,20 @@ export const Navbar = () => {
                 
                 </>
             )
+        }else{
+            return(
+                <li>
+                    <NavLink
+                        to = "/sign-in"
+                        className={({isActive}) =>
+                            isActive ? activeStyle : undefined}
+                        onClick = {() => handleSignOut()}
+                    >
+                            Sing out
+                    </NavLink>
+                </li>
+            )
+            
         }
     }
 
@@ -80,7 +91,7 @@ export const Navbar = () => {
             <ul className='flex flex-row gap-3 items-center'>
                 <li className='font-semibold text-lg'>
                     <NavLink
-                        to = "/" 
+                        to ={`${isUserSignOut ? 'sign-in':'/'}`}
                         onClick={() => setSearchByCategory('')}>
                             shopi
                     </NavLink>
